@@ -5,7 +5,7 @@ int setbits(int x, int p, int n, int y);
 
 int main()
 {
-    printf("%s", convert(152, 6));
+    printf("%s", convert(setbits(0b1001, 2, 2, 1), 2));
     
     return 0;
 }
@@ -15,7 +15,7 @@ char *convert(int number, int base)
     static char res[sizeof(int)*8];
 
     if(base >= 10) {
-        printf("Input error in 'convert' function,\nargument 'base' has to be smaller than 10.");
+        printf("Input error in 'convert' function,\nargument 'base' has to be smaller than 10.\n");
         return NULL;
     }
     if(number == 0)
@@ -47,5 +47,10 @@ char *convert(int number, int base)
 
 int setbits(int x, int p, int n, int y)
 {
-    ;
+    if(y == 1) {
+        return x | (~(~0 << n) << p+1-n);
+    }
+    else if(y == 0) {
+        return x & (~(~(~0 << n) << p+1-n));
+    }
 }
